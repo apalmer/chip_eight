@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C07EA095-A532-4B3B-B7AA-38C2AE0CFB9E}</ProjectGuid>
+    <ProjectGuid>{7C4ED24B-015F-4F0F-A668-48293A9831CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Playground.DataAccess</RootNamespace>
-    <AssemblyName>Playground.DataAccess</AssemblyName>
+    <RootNamespace>Playground.Tests</RootNamespace>
+    <AssemblyName>Playground.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,8 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,11 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ADOdotNET\EmployeeSearch.cs" />
+    <Compile Include="DataAccess\ADOdotNET\EmployeeSearch\SearchTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Playground.DataAccess\Playground.DataAccess.csproj">
+      <Project>{C07EA095-A532-4B3B-B7AA-38C2AE0CFB9E}</Project>
+      <Name>Playground.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Playground.Domain\Playground.Domain.csproj">
       <Project>{98FB9AB9-ED03-4F8D-850B-BF51BC528897}</Project>
       <Name>Playground.Domain</Name>

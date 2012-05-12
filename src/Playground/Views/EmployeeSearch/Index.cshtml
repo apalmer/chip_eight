@@ -1,0 +1,28 @@
+﻿@model Playground.Models.EmployeeSearchModel
+
+@{
+    ViewBag.Title = "Employee Search";
+}
+
+<h2>Employee Search</h2>
+@using (Html.BeginForm("Index", "EmployeeSearch"))
+{
+    <table>
+        <tr><td>@Html.LabelFor(m => m.Criteria.FirstName)<text>:</text></td><td>@Html.TextBoxFor(m => m.Criteria.FirstName)</td></tr>
+
+        <tr><td>@Html.LabelFor(m => m.Criteria.LastName)<text>:</text></td><td>@Html.TextBoxFor(m => m.Criteria.LastName)</td></tr>
+
+        <tr><td>@Html.LabelFor(m => m.Criteria.Organization)<text>:</text></td><td>@Html.TextBoxFor(m => m.Criteria.Organization)</td></tr>
+
+        <tr><td>@Html.LabelFor(m => m.Criteria.JobTitle)<text>:</text></td><td>@Html.TextBoxFor(m => m.Criteria.JobTitle)</td></tr>
+
+        <tr><td>@Html.LabelFor(m => m.Criteria.Address)<text>:</text></td><td>@Html.TextBoxFor(m => m.Criteria.Address)</td></tr>
+
+        <tr><td>@Html.LabelFor(m => m.Criteria.City)<text>:</text></td><td>@Html.TextBoxFor(m => m.Criteria.City)</td></tr>
+        
+        <tr><td>@Html.LabelFor(m => m.Criteria.State)<text>:</text></td><td>@Html.TextBoxFor(m => m.Criteria.State)</td></tr>
+
+        <tr><td>@Html.LabelFor(m => m.Criteria.ZipCode)<text>:</text></td><td>@Html.TextBoxFor(m => m.Criteria.ZipCode)</td></tr>
+    </table>
+    <input type="submit" id="submit-search" value="Search"/>
+}                                                                                   

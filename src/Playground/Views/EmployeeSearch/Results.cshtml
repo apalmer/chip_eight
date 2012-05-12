@@ -1,0 +1,32 @@
+﻿@model Playground.Models.EmployeeSearchResultsModel
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h2>Results</h2>
+<table id="search-results">
+    <tr>
+        <th id="FirstName">First Name</th>
+        <th id="LastName">Last Name</th>
+        <th id="Organization">Organization</th>
+        <th id="JobTitle">Position</th>
+        <th id="Address">Address</th>
+        <th id="City">City</th>
+        <th id="State">State</th>
+        <th id="ZipCode">ZipCode</th>
+    </tr>
+    @foreach(var employee in Model.SearchResults)
+    {
+    <tr>
+        <td>@employee.FirstName</td>
+        <td>@employee.LastName</td>
+        <td>@employee.Organization</td>
+        <td>@employee.JobTitle</td>
+        <td>@employee.Address</td>
+        <td>@employee.City</td>
+        <td>@employee.State</td>
+        <td>@employee.ZipCode</td>
+    </tr>
+    }
+</table>
