@@ -46,8 +46,8 @@ namespace Playground.Controllers
         {
             if (searchCriteria.Validate())
             {
-                searchCriteria.PageNumber = searchCriteria.PageNumber  ?? 1;
-                searchCriteria.RecordsPerPage = searchCriteria.RecordsPerPage ?? 20;
+                //searchCriteria.PageNumber = searchCriteria.PageNumber  ?? 1;
+                //searchCriteria.RecordsPerPage = searchCriteria.RecordsPerPage ?? 20;
                 var model = new Playground.Models.EmployeeSearchResultsModel();
                 var search = new Playground.BusinessLogic.EmployeeSearch();
                 model.SearchResults = search.Search(searchCriteria);
