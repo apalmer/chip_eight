@@ -44,13 +44,19 @@ namespace Playground.Controllers
 
         public ActionResult Results(Playground.BusinessLogic.EmployeeSearchCriteria searchCriteria)
         {
-            searchCriteria.PageNumber = 1;
-            searchCriteria.RecordsPerPage = 20;
-
-            var model = new Playground.Models.EmployeeSearchResultsModel();
-            var search = new Playground.BusinessLogic.EmployeeSearch();
-            model.SearchResults = search.Search(searchCriteria);
-            return View(model);
+            if (searchCriteria.Validate())
+            {
+                searchCriteria.PageNumber = searchCriteria.PageNumber  ?? 1;
+                searchCriteria.RecordsPerPage = searchCriteria.RecordsPerPage ?? 20;
+                var model = new Playground.Models.EmployeeSearchResultsModel();
+                var search = new Playground.BusinessLogic.EmployeeSearch();
+                model.SearchResults = search.Search(searchCriteria);
+                return View(model);
+            }
+            else
+            {
+               return RedirectToAction("Index");
+            }
         }
     }
 }

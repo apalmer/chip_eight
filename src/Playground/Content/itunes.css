@@ -1,0 +1,67 @@
+﻿html, body {
+  width: 100%;
+  border: 0;
+  padding: 0px;
+  margin: 0px;
+}
+
+#header {
+    background-image: url('themes/itunes/images/header.png');
+    background-repeat: repeat-x;
+    height:70px;
+    font-effect: engrave;
+}
+
+#search-results {
+    border: 0px;
+    border-width: 0px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#search-results tr td {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #DFE9DF
+}
+
+
+#search-results tbody tr:hover{
+    background-color: blue;
+    color: white;
+}
+.odd {
+    background-color: #F2F5F9
+}
+
+thead {
+    background-image: url('themes/itunes/images/table-header.png');
+    background-repeat: repeat-x;
+}
+
+thead th:hover {
+    background-image: url('themes/itunes/images/table-header-selected.png');
+    background-repeat: repeat-x;
+}
+
+th {
+    height: 22px;
+}
+
+tfoot {
+    background-image: url('themes/itunes/images/table-footer.png');
+    background-repeat: repeat-x;
+}
+
+#search-results tfoot tr td {
+    height: 53px;
+    border-bottom-style: none;
+    border-bottom-width: 0px;
+}
+
+#footer {
+    background-image: url('themes/itunes/images/table-footer.png');
+    background-repeat: repeat-x;
+    height: 53px;
+    width: 100%;
+}
