@@ -51,6 +51,7 @@ namespace Playground.Controllers
                 var model = new Playground.Models.EmployeeSearchResultsModel();
                 var search = new Playground.BusinessLogic.EmployeeSearch();
                 model.SearchResults = search.Search(searchCriteria);
+                model.Criteria = searchCriteria;
                 return View(model);
             }
             else

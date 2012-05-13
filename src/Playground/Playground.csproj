@@ -186,7 +186,13 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\itunes\images\arrow-down.png" />
+    <Content Include="Content\themes\itunes\images\arrow-up.png" />
+    <Content Include="Content\themes\itunes\images\filter-off.png" />
+    <Content Include="Content\themes\itunes\images\filter-on.png" />
     <Content Include="Content\themes\itunes\images\header.png" />
+    <Content Include="Content\themes\itunes\images\table-header-separator.png" />
+    <Content Include="Content\themes\itunes\images\spacer.png" />
     <Content Include="Content\themes\itunes\images\table-footer.png" />
     <Content Include="Content\themes\itunes\images\table-header-selected.png" />
     <Content Include="Content\themes\itunes\images\table-header.png" />
