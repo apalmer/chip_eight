@@ -1,6 +1,9 @@
-import chip_eight
+from chip_eight.core import Machine
 
-def test_execute(capsys):
-    chip_eight.execute()
-    captured = capsys.readouterr()
-    assert captured.out == "Executing...\n"
+def test_load(capsys):
+    ordered = bytearray([i for i in range(0x00,0x100,0x01)])
+    sut = Machine()
+    sut.initialize()
+    sut.loadRom(ordered)        
+    actual = sut.process_operation()
+    assert actual == ordered[0:2]
