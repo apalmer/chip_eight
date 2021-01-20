@@ -3,7 +3,6 @@ MAX_MEMORY = 0x1000
 OPERATION_SIZE = 0x002
 
 class Machine():
-        
     def __init__(self):
         self.memory = bytearray(MAX_MEMORY)
         self.PC = ROMOFFSET
