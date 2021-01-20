@@ -1,4 +1,3 @@
-
 ROMOFFSET = 0x200
 MAX_MEMORY = 0x1000
 OPERATION_SIZE = 0x002
@@ -25,4 +24,3 @@ class Machine():
         self.execute_operation(operation)
         self.PC = next_pc
         return operation
-

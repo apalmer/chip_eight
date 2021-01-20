@@ -1,11 +1,11 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="chip_eight-apalmer", 
-    version="0.0.1",
+    version="0.0.2",
     author="Adigun Palmer",
     author_email="adigunpalmer@hotmail.com",
     description="CHIP-8 Emulator",
