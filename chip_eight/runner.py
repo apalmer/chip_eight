@@ -10,4 +10,4 @@ def load(rom):
     __machine.loadRom(romData)
 
 def run():
-    __machine.process_operation()
+    __machine.process_program()

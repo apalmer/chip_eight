@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="chip_eight-apalmer", 
-    version="0.0.2",
+    version="0.0.3",
     author="Adigun Palmer",
     author_email="adigunpalmer@hotmail.com",
     description="CHIP-8 Emulator",

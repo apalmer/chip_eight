@@ -1,6 +1,7 @@
 import chip_eight
 
 class TestMachine:
+    
     @staticmethod
     def test_load():
         ordered = bytearray(range(0x00,0x100,0x01))
