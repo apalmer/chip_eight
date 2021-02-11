@@ -1,13 +1,13 @@
-from chip_eight.core import Machine
+from chip_eight import Computer
 
-__machine = Machine()
+__computer = Computer()
 
 def boot():
-    __machine.initialize()
+    __computer.initialize()
 
 def load(rom):
     romData = open(rom,"rb").read()
-    __machine.loadRom(romData)
+    __computer.load_rom(romData)
 
 def run():
-    __machine.process_program()
+    __computer.process_program()
