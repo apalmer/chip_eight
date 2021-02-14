@@ -6,8 +6,8 @@ def boot():
     __computer.initialize()
 
 def load(rom):
-    romData = open(rom,"rb").read()
-    __computer.load_rom(romData)
+    rom_data = open(rom,"rb").read()
+    __computer.load_rom(rom_data)
 
 def run():
-    __computer.process_program()
+    __computer.execute_progam()

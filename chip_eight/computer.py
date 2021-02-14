@@ -1,14 +1,20 @@
+
+from chip_eight import Memory, Screen, Cpu
+
 class Computer():
 
-    def __init__(self):
-        pass
-    
+    def __init__(self, clock_speed=600):
+        self.clock_speed = clock_speed
+        self.memory = Memory()
+        self.screen = Screen()
+        self.cpu = Cpu(self.memory, self.screen, self.clock_speed)
+
     def initialize(self):
-        pass
+        self.cpu.initialize()
+        self.screen.initialize()
     
     def load_rom(self, rom):
-        for index, byte in enumerate(rom):
-            self.memory[ROMOFFSET + index] = byte
+        self.memory.load_rom(rom)
 
-    def execute_program(self):
-        pass
+    def execute_progam(self):
+        self.cpu.process_program()

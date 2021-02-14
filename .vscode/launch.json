@@ -10,7 +10,7 @@
             "request": "launch",
             "module": "chip_eight",
             "args": [
-                "BLITZ"
+                "IBM"
             ]
         }
     ]

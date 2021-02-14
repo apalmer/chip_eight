@@ -35,7 +35,7 @@ class TestMemory:
         sut = Memory()
         sut.load_rom(ordered)
 
-        actual = sut[sut.ROMOFFSET:sut.ROMOFFSET+2]
+        actual = sut[sut.ROM_OFFSET:sut.ROM_OFFSET+2]
 
         assert actual == ordered[0:2]
 
