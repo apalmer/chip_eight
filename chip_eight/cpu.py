@@ -30,7 +30,7 @@ class Cpu():
             0x1000: self.operation_JP_addr,
             0x2000: self.operation_CALL_addr,
             0x3000: self.operation_SE_Vx_byte,
-            0x4000: self.operation_SNE,
+            0x4000: self.operation_SNE_Vx_byte,
             0x5000: self.operation_SE,
             0x6000: self.operation_LD_Vx_byte,
             0x7000: self.operation_ADD_Vx_byte,
@@ -269,6 +269,18 @@ class Cpu():
         if(self.registers['v'][x] == byte):
             self.registers['pc'] += OPERATION_SIZE
 
+    def operation_SNE_Vx_byte(self, args):
+        """
+        4xkk - SNE Vx, byte
+        Skip next instruction if Vx != kk.
+
+        The interpreter compares register Vx to kk, and if they are not equal, increments the program counter by 2.
+        """
+        x = (args & 0x0F00) >> 8
+        byte = args & 0x00FF
+        if(self.registers['v'][x] != byte):
+            self.registers['pc'] += OPERATION_SIZE
+
     def operation_XOR_Vx_Vy(self, args):
         """
         8xy3 - XOR Vx, Vy
@@ -284,10 +296,6 @@ class Cpu():
 
     def operation_SYS(self, args):
         # addr
-        pass
-
-    def operation_SNE(self, args):
-        # Vx, byte
         pass
 
     def operation_SE(self, args):
