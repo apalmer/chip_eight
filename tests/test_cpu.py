@@ -1,7 +1,7 @@
 import pytest
-#import pytest_mock
-#from pytest_mock import mocker
+import pytest_mock
 import pygame
+import collections
 
 from chip_eight import keyboard, memory
 import chip_eight
@@ -145,8 +145,8 @@ class TestCpu:
         assert sut.registers['v'][0x9] == expected
 
     @staticmethod
-    @pytest.mark.skip(reason="no way of testing this without concurrency")
-    def test_operation_LD_Vx_K():
+    #@pytest.mark.skip(reason="no way of testing this without concurrency")
+    def test_operation_LD_Vx_K(mocker):
         expected = 0x3
 
         program = bytearray(b'\xF0\x0A')
@@ -157,14 +157,14 @@ class TestCpu:
         sut.initialize()
         memory.load_rom(program)
         
-        #TODO: How to implement this without concurrency?
-        #the wait for key process is a blocking synchronous call
-        #so cant trigger key press once process_operation is called
+        EventMock = collections.namedtuple('EventMock', 'type')
+        event_mock = EventMock(type=pygame.KEYDOWN)
+        mocker.patch("pygame.event.wait", return_value=event_mock):
+        result_table = [False] * 512
+        result_table[pygame.K_4] = True
+        mocker.patch("pygame.key.get_pressed", return_value=result_table):
+                
         sut.process_operation()
-        #pygame trigger 'D' key
-        pygame.init()
-        press_d_event = pygame.event.Event(pygame.KEYDOWN, unicode="a", key=pygame.K_a, mod=pygame.KMOD_NONE)
-        pygame.event.post(press_d_event)
 
         assert sut.registers['v'][0x0] == expected
 

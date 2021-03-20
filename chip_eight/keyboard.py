@@ -8,8 +8,8 @@ class Keyboard():
         key_pressed = False
         while not key_pressed:
             event = pygame.event.wait()
-            if event.type == pygame.KEYDOWN:
-                keys_pressed = key.get_pressed()
+            if event.type == pygame.KEYDOWN: 
+                keys_pressed = pygame.key.get_pressed()
                 key_pressed = True
-        return 
+        return keys_pressed
     
