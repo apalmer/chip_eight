@@ -1,9 +1,9 @@
-#import pytest
+import pytest
 #import pytest_mock
 #from pytest_mock import mocker
 import pygame
 
-from chip_eight import memory
+from chip_eight import keyboard, memory
 import chip_eight
  
 class TestCpu:
@@ -15,7 +15,7 @@ class TestCpu:
         program = bytearray(b'\x78\x80')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         sut.registers['v'][0x8] = 0x7f
@@ -29,7 +29,7 @@ class TestCpu:
         program = bytearray(b'\x20\x10')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         
@@ -53,7 +53,7 @@ class TestCpu:
         screen = chip_eight.Screen()
         mocker.patch.object(screen, 'clear_screen')
 
-        sut = chip_eight.Cpu(memory, screen)
+        sut = chip_eight.Cpu(memory, screen, None)
         sut.initialize()
         memory.load_rom(program)
         
@@ -70,7 +70,7 @@ class TestCpu:
         mocker.patch.object(screen, 'draw_sprite')
         screen.draw_sprite.return_value = 0
 
-        sut = chip_eight.Cpu(memory, screen)
+        sut = chip_eight.Cpu(memory, screen, None)
         sut.initialize()
         memory.load_rom(program)
         sut.registers['v'][0] = 1
@@ -90,7 +90,7 @@ class TestCpu:
         program = bytearray(b'\x12\x58')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         
@@ -105,7 +105,7 @@ class TestCpu:
         program = bytearray(b'\xB2\x58')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         sut.registers['v'][0] = 23
@@ -121,7 +121,7 @@ class TestCpu:
         program = bytearray(b'\xA2\x58')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         
@@ -136,7 +136,7 @@ class TestCpu:
         program = bytearray(b'\x69\xAB')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         
@@ -145,16 +145,21 @@ class TestCpu:
         assert sut.registers['v'][0x9] == expected
 
     @staticmethod
+    @pytest.mark.skip(reason="no way of testing this without concurrency")
     def test_operation_LD_Vx_K():
         expected = 0x3
 
         program = bytearray(b'\xF0\x0A')
         memory = chip_eight.Memory()
-        
-        sut = chip_eight.Cpu(memory, None)
+        keyboard = chip_eight.Keyboard()
+
+        sut = chip_eight.Cpu(memory, None, keyboard)
         sut.initialize()
         memory.load_rom(program)
         
+        #TODO: How to implement this without concurrency?
+        #the wait for key process is a blocking synchronous call
+        #so cant trigger key press once process_operation is called
         sut.process_operation()
         #pygame trigger 'D' key
         pygame.init()
@@ -170,7 +175,7 @@ class TestCpu:
         program = bytearray(b'\x83\x40')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         sut.registers['v'][0x3] = 0x00
@@ -186,7 +191,7 @@ class TestCpu:
         program = bytearray(b'\x00\x00')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
     
@@ -211,7 +216,7 @@ class TestCpu:
         program = bytearray(b'\xCA\x4F')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         sut.registers['v'][10] == 0
@@ -227,7 +232,7 @@ class TestCpu:
         program = bytearray(b'\x3A\x12')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         sut.registers['v'][10] = 18
@@ -242,7 +247,7 @@ class TestCpu:
         program = bytearray(b'\x47\x1F\x00\x00\x00\x00')
         memory = chip_eight.Memory()
 
-        sut = chip_eight.Cpu(memory,None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         sut.registers['v'][0x7] = 0x1E
@@ -257,7 +262,7 @@ class TestCpu:
         program = bytearray(b'\x80\x13')
         memory = chip_eight.Memory()
         
-        sut = chip_eight.Cpu(memory, None)
+        sut = chip_eight.Cpu(memory, None, None)
         sut.initialize()
         memory.load_rom(program)
         sut.registers['v'][0] = 0b11111111

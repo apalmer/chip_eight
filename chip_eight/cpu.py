@@ -19,9 +19,10 @@ SP_SIZE = 2
 OPERATION_SIZE = 2
 
 class Cpu():
-    def __init__(self, memory, screen, clock_speed=60):
+    def __init__(self, memory, screen, keyboard, clock_speed=60):
         self.memory = memory
         self.screen = screen
+        self.keyboard = keyboard
         self.clock_speed = clock_speed
         self.initialize()
         
@@ -64,7 +65,7 @@ class Cpu():
         }
         self.load_operations = {
             0xF007: self.operation_LD,
-            0xF00A: self.operation_LD,
+            0xF00A: self.operation_LD_Vx_K,
             0xF015: self.operation_LD,
             0xF018: self.operation_LD,
             0xF01E: self.operation_LD,
@@ -221,6 +222,18 @@ class Cpu():
         byte = args & 0x00FF
         self.registers['v'][x] = byte
 
+    def operation_LD_Vx_K(self, args):
+        """
+        Fx0A - LD Vx, K
+        Wait for a key press, store the value of the key in Vx.
+
+        All execution stops until a key is pressed, then the value of that key is stored in Vx. 
+        """
+        x = (args & 0x0F00) >> 8
+        k = self.keyboard.wait_for_key()
+        self.registers['v'][x] = k
+
+
     def operation_LD_Vx_Vy(self, args):
         """
         8xy0 - LD Vx, Vy
@@ -345,11 +358,6 @@ class Cpu():
     def operation_LD(self, args):
         # Vx, DT
         pass
-
-    def operation_LD(self, args):
-        # Vx, K
-        pass
-
     def operation_LD(self, args):
         # DT, Vx
         pass
