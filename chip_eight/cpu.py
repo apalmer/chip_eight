@@ -60,8 +60,8 @@ class Cpu():
             0x800E: self.operation_SHL
         }
         self.skip_operations = {
-            0xE09E: self.operation_SKP,
-            0xE0A1: self.operation_SKNP
+            0xE09E: self.operation_SKP_Vx,
+            0xE0A1: self.operation_SKNP_Vx
         }
         self.load_operations = {
             0xF007: self.operation_LD,
@@ -282,6 +282,28 @@ class Cpu():
         if(self.registers['v'][x] == byte):
             self.registers['pc'] += OPERATION_SIZE
 
+    def operation_SKP_Vx(self, args):
+        """
+        Skip next instruction if key with the value of Vx is pressed.
+
+        Checks the keyboard, and if the key corresponding to the value of Vx is currently in the down position, PC is increased by 2.
+        """
+        x = (args & 0x0F00) >> 8
+        key = self.registers['v'][x]
+        if self.keyboard.is_pressed(key):
+            self.registers['pc'] += OPERATION_SIZE
+
+    def operation_SKNP_Vx(self, args):
+        """
+        Skip next instruction if key with the value of Vx is not pressed.
+
+        Checks the keyboard, and if the key corresponding to the value of Vx is currently in the up position, PC is increased by 2.
+        """
+        x = (args & 0x0F00) >> 8
+        key = self.registers['v'][x]
+        if not self.keyboard.is_pressed(key):
+            self.registers['pc'] += OPERATION_SIZE
+
     def operation_SNE_Vx_byte(self, args):
         """
         4xkk - SNE Vx, byte
@@ -347,14 +369,6 @@ class Cpu():
         # Vx, Vy
         pass
         
-    def operation_SKP(self, args):
-        # Vx
-        pass
-
-    def operation_SKNP(self, args):
-        # Vx
-        pass
-
     def operation_LD(self, args):
         # Vx, DT
         pass

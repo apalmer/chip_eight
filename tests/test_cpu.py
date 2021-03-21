@@ -145,9 +145,8 @@ class TestCpu:
         assert sut.registers['v'][0x9] == expected
 
     @staticmethod
-    #@pytest.mark.skip(reason="no way of testing this without concurrency")
     def test_operation_LD_Vx_K(mocker):
-        expected = 0x3
+        expected = 0x4
 
         program = bytearray(b'\xF0\x0A')
         memory = chip_eight.Memory()
@@ -159,10 +158,10 @@ class TestCpu:
         
         EventMock = collections.namedtuple('EventMock', 'type')
         event_mock = EventMock(type=pygame.KEYDOWN)
-        mocker.patch("pygame.event.wait", return_value=event_mock):
+        mocker.patch("pygame.event.wait", return_value=event_mock)
         result_table = [False] * 512
-        result_table[pygame.K_4] = True
-        mocker.patch("pygame.key.get_pressed", return_value=result_table):
+        result_table[pygame.K_q] = True
+        mocker.patch("pygame.key.get_pressed", return_value=result_table)
                 
         sut.process_operation()
 
@@ -224,7 +223,7 @@ class TestCpu:
         sut.process_operation()
 
         assert sut.registers['v'][0xA] <= 79
-        
+ 
     @staticmethod
     def test_operation_SE_Vx_byte():
         expected = 516
@@ -240,6 +239,48 @@ class TestCpu:
         sut.process_operation()
 
         assert sut.registers['pc'] == 516
+
+    @staticmethod
+    def test_operation_SKP_Vx(mocker):
+        expected = 516
+
+        program = bytearray(b'\xE2\x9E')
+        memory = chip_eight.Memory()
+        keyboard = chip_eight.Keyboard()
+        
+        sut = chip_eight.Cpu(memory, None, keyboard)
+        sut.initialize()
+        memory.load_rom(program)
+        sut.registers['v'][0x2] = 0x4
+        
+        result_table = [False] * 512
+        result_table[pygame.K_q] = True
+        mocker.patch("pygame.key.get_pressed", return_value=result_table)
+               
+        sut.process_operation()
+
+        assert sut.registers['pc'] == expected
+        
+    @staticmethod
+    def test_operation_SKNP_Vx(mocker):
+        expected = 516
+
+        program = bytearray(b'\xE2\xA1')
+        memory = chip_eight.Memory()
+        keyboard = chip_eight.Keyboard()
+        
+        sut = chip_eight.Cpu(memory, None, keyboard)
+        sut.initialize()
+        memory.load_rom(program)
+        sut.registers['v'][0x2] = 0x5
+        
+        result_table = [False] * 512
+        result_table[pygame.K_q] = True
+        mocker.patch("pygame.key.get_pressed", return_value=result_table)
+               
+        sut.process_operation()
+
+        assert sut.registers['pc'] == expected
        
     @staticmethod
     def test_operation_SNE_Vx_byte():
